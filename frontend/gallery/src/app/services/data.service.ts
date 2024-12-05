@@ -1,83 +1,64 @@
 import { Injectable } from '@angular/core';
 
-export interface Message {
-  fromName: string;
-  subject: string;
-  date: string;
+export interface Image {
   id: number;
-  read: boolean;
+  filepath: string;
+  description: string;
 }
 
+// NOTE: Unfortunately i did not have enough time to write an api service.
+// But i chose these constant names to demonstrate a few things:
+// - The api would have to read a configuration or environment variable that provides the backend base url.
+// - The endpoint for images would define it's "endpoint-string"/sub-path 'images/'.
+// - Then they plus the image name would be joined together via an url spec aware joiner.
+// Then this url could be used to retrieve the image from the backend server.
+
+// NOTE: Furthermore in the future one would want to implement some kind of pagination or batch image retrieval with a
+// maximum number of pictures per call.
+
+const baseUrl = 'http://localhost:3000/';
+const apiEndpoint = 'images/';
+const imagesEndpoint = baseUrl + apiEndpoint;
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-  public messages: Message[] = [
+  public images: Image[] = [
     {
-      fromName: 'Matt Chorsey',
-      subject: 'New event: Trip to Vegas',
-      date: '9:32 AM',
       id: 0,
-      read: false
+      filepath: new URL('cat.jpg', imagesEndpoint).href,
+      description: 'Cute cat.',
     },
     {
-      fromName: 'Lauren Ruthford',
-      subject: 'Long time no chat',
-      date: '6:12 AM',
       id: 1,
-      read: false
+      filepath: new URL('elefants.jpg', imagesEndpoint).href,
+      description: 'Two elephants.',
     },
     {
-      fromName: 'Jordan Firth',
-      subject: 'Report Results',
-      date: '4:55 AM',
       id: 2,
-      read: false
+      filepath: new URL('sheep.jpg', imagesEndpoint).href,
+      description: 'Multiple sheep.',
     },
     {
-      fromName: 'Bill Thomas',
-      subject: 'The situation',
-      date: 'Yesterday',
       id: 3,
-      read: false
+      filepath: new URL('squirrel.jpg', imagesEndpoint).href,
+      description: 'Secret service squirrel.',
     },
     {
-      fromName: 'Joanne Pollan',
-      subject: 'Updated invitation: Swim lessons',
-      date: 'Yesterday',
       id: 4,
-      read: false
+      filepath: new URL('tiger.jpg', imagesEndpoint).href,
+      description: 'Probably hungry tiger.',
     },
-    {
-      fromName: 'Andrea Cornerston',
-      subject: 'Last minute ask',
-      date: 'Yesterday',
-      id: 5,
-      read: false
-    },
-    {
-      fromName: 'Moe Chamont',
-      subject: 'Family Calendar - Version 1',
-      date: 'Last Week',
-      id: 6,
-      read: false
-    },
-    {
-      fromName: 'Kelly Richardson',
-      subject: 'Placeholder Headhots',
-      date: 'Last Week',
-      id: 7,
-      read: false
-    }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  public getMessages(): Message[] {
-    return this.messages;
+  public getImages(): Image[] {
+    return this.images;
   }
 
-  public getMessageById(id: number): Message {
-    return this.messages[id];
+  public getImageById(id: number): Image {
+    return this.images[id];
   }
 }
