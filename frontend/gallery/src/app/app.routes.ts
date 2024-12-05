@@ -6,7 +6,7 @@ export const routes: Routes = [
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'image/:id',
+    path: 'image/:filename',
     loadComponent: () =>
       import('./view-image/view-image.page').then((m) => m.ViewImagePage),
   },

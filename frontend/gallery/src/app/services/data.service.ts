@@ -1,9 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 export interface Image {
   id: number;
+  filename: string;
   filepath: string;
-  description: string;
 }
 
 // NOTE: Unfortunately i did not have enough time to write an api service.
@@ -24,41 +25,21 @@ const imagesEndpoint = baseUrl + apiEndpoint;
   providedIn: 'root',
 })
 export class DataService {
-  public images: Image[] = [
-    {
-      id: 0,
-      filepath: new URL('cat.jpg', imagesEndpoint).href,
-      description: 'Cute cat.',
-    },
-    {
-      id: 1,
-      filepath: new URL('elefants.jpg', imagesEndpoint).href,
-      description: 'Two elephants.',
-    },
-    {
-      id: 2,
-      filepath: new URL('sheep.jpg', imagesEndpoint).href,
-      description: 'Multiple sheep.',
-    },
-    {
-      id: 3,
-      filepath: new URL('squirrel.jpg', imagesEndpoint).href,
-      description: 'Secret service squirrel.',
-    },
-    {
-      id: 4,
-      filepath: new URL('tiger.jpg', imagesEndpoint).href,
-      description: 'Probably hungry tiger.',
-    },
-  ];
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  public getImages(): Image[] {
-    return this.images;
+  public getImageFilenames() {
+    return this.http.get(imagesEndpoint + 'paths');
   }
 
-  public getImageById(id: number): Image {
-    return this.images[id];
+  public getImagesByFilenames(filenames: string[]): Image[] {
+    const images = filenames.map((value, index) => {
+      return {
+        id: index,
+        filename: value,
+        filepath: new URL(value, imagesEndpoint).href,
+      };
+    });
+
+    return images;
   }
 }

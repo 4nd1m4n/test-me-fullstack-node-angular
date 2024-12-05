@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   RefresherCustomEvent,
   IonHeader,
@@ -32,8 +32,15 @@ import { DataService, Image } from '../services/data.service';
   ],
 })
 export class HomePage {
-  private data = inject(DataService);
-  constructor() {}
+  public imageFilenames: any;
+  public images: any;
+
+  constructor(private dataService: DataService) {
+    this.dataService.getImageFilenames().subscribe((res) => {
+      this.imageFilenames = res;
+      this.images = this.dataService.getImagesByFilenames(this.imageFilenames);
+    });
+  }
 
   refresh(ev: any) {
     setTimeout(() => {
@@ -42,6 +49,6 @@ export class HomePage {
   }
 
   getImages(): Image[] {
-    return this.data.getImages();
+    return this.images;
   }
 }

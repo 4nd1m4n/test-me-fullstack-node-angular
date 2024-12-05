@@ -1,15 +1,15 @@
-<ion-item *ngIf="image" [routerLink]="'/image/' + image.id">
+<ion-item *ngIf="image" [routerLink]="'/image/' + image.filename">
   <div slot="start">
   </div>
   <ion-thumbnail>
-    <img [src]="image.filepath" [alt]="image.description" />
+    <img [src]="image.filepath" [alt]="image.filename" />
   </ion-thumbnail>
   <ion-label class="ion-text-wrap">
     <p>
       {{ image.filepath }}
     </p>
     <p>
-      {{ image.description}}
+      {{ image.filename}}
     </p>
   </ion-label>
 </ion-item>

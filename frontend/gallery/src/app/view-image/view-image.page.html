@@ -9,9 +9,9 @@
 <ion-content [fullscreen]="true" *ngIf="image">
   <div class="ion-padding">
     <h3>{{ image.filepath }}</h3>
-    <p>{{ image.description }}</p>
+    <p>{{ image.filename }}</p>
     <div>
-      <ion-img [src]="image.filepath" [alt]="image.description" />
+      <ion-img [src]="image.filepath" [alt]="image.filename" />
     </div>
   </div>
 </ion-content>
