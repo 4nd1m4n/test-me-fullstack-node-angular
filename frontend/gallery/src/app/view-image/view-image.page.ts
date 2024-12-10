@@ -14,7 +14,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { personCircle } from 'ionicons/icons';
-import { DataService, Image } from '../services/data.service';
+import { DataService, Image } from '../services/image-data.service';
 
 @Component({
   selector: 'app-view-image',

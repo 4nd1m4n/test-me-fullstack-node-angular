@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ImagekitService } from 'imagekitio-angular';
 
 export interface Image {
   id: number;
@@ -18,7 +19,7 @@ export interface Image {
 // maximum number of pictures per call.
 
 const baseUrl = 'http://localhost:3000/';
-const apiEndpoint = 'images/';
+const apiEndpoint = 'imagepaths/';
 const imagesEndpoint = baseUrl + apiEndpoint;
 
 @Injectable({
@@ -27,9 +28,16 @@ const imagesEndpoint = baseUrl + apiEndpoint;
 export class DataService {
   constructor(private http: HttpClient) {}
 
-  public getImageFilenames() {
-    return this.http.get(imagesEndpoint + 'paths');
-  }
+  //TODO
+  // public getFilenames() {
+  //   const filenames: string[] = [];
+
+  //   return filenames;
+  // }
+
+  // public getImageFilenames() {
+  //   return this.http.get(imagesEndpoint + 'paths');
+  // }
 
   public getImagesByFilenames(filenames: string[]): Image[] {
     const images = filenames.map((value, index) => {
@@ -41,5 +49,27 @@ export class DataService {
     });
 
     return images;
+  }
+
+  public getImageFilenames() {
+    // return this.http.get(imagesEndpoint + 'paths');
+    const filenames = this.http.get(imagesEndpoint);
+
+    // console.log(filenames);
+    return filenames;
+
+    // // Initializing the service with configuration
+    // this.imagekitService = new ImagekitService({
+    //   urlEndpoint: 'https://ik.imagekit.io/wozo7gejv/',
+    //   publicKey: 'public_w+424hnM+05PtmSrnTR54AnXtCQ=',
+    // });
+
+    // // Generating URL
+    // // Note: You can choose to override the publicKey if necessary
+    // const url = this.imagekitService.ikInstance.url({
+    //   path: '/abstract-1_h6LtzOTZB.jpg',
+    //   urlEndpoint: 'https://ik.imagekit.io/wozo7gejv/',
+    //   // publicKey: 'public_w+424hnM+05PtmSrnTR54AnXtCQ=',
+    // });
   }
 }

@@ -1,29 +1,10 @@
-const express = require("express");
-const cors = require("cors");
 const path = require("path");
 
-const image = require("./image");
-
-const app = express();
-app.use(cors());
-
-const port = 3000;
-
-const assets = path.join(__dirname, "..", "assets");
-const images = path.join(assets, "images");
-
-app.get("/", (req, res) => {
-    res.send("Node backend running.");
+// make .env and imagekit configuration available
+require("dotenv").config({
+    // .env is all the way up in the root, because both projects need the keys
+    path: path.join(__dirname, "../../.env"),
 });
 
-app.get("/images/paths", async (request, response) => {
-    imagesFilepaths = await image.getImages(images);
-
-    response.json(imagesFilepaths);
-});
-
-app.use("/images", express.static(images));
-
-app.listen(port, () => {
-    return console.log(`Express is listening at http://localhost:${port}`);
-});
+// run server
+require("./server");

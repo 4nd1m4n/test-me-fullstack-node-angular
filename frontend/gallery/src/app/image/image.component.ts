@@ -14,7 +14,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronForward } from 'ionicons/icons';
-import { Image } from '../services/data.service';
+import { Image } from '../services/image-data.service';
 
 @Component({
   selector: 'app-image',
