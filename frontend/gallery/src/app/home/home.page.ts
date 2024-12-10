@@ -12,7 +12,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ImageComponent } from '../image/image.component';
 
-import { DataService, Image } from '../services/image-data.service';
+import { ImageDataService, Image } from '../services/image-data.service';
 
 @Component({
   selector: 'app-home',
@@ -35,12 +35,14 @@ export class HomePage {
   public imageFilenames: any;
   public images: any;
 
-  constructor(private dataService: DataService) {
-    this.dataService.getImageFilenames().subscribe((res) => {
+  constructor(private imageService: ImageDataService) {
+    // const visibleCount = 10;
+
+    this.imageService.getImageFilenames().subscribe((res) => {
       console.log(res);
 
       this.imageFilenames = res;
-      this.images = this.dataService.getImagesByFilenames(this.imageFilenames);
+      this.images = this.imageService.getImagesByFilenames(this.imageFilenames);
     });
   }
 
@@ -52,5 +54,11 @@ export class HomePage {
 
   getImages(): Image[] {
     return this.images;
+  }
+
+  fetchAllImageFilepaths() {}
+
+  ngOnInit() {
+    this.fetchAllImageFilepaths();
   }
 }

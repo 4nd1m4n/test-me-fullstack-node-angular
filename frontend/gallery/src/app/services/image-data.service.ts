@@ -25,7 +25,7 @@ const imagesEndpoint = baseUrl + apiEndpoint;
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class ImageDataService {
   constructor(private http: HttpClient) {}
 
   //TODO

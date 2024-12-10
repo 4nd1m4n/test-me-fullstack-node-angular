@@ -14,7 +14,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { personCircle } from 'ionicons/icons';
-import { DataService, Image } from '../services/image-data.service';
+import { ImageDataService, Image } from '../services/image-data.service';
 
 @Component({
   selector: 'app-view-image',
@@ -35,7 +35,7 @@ import { DataService, Image } from '../services/image-data.service';
 })
 export class ViewImagePage implements OnInit {
   public image!: Image;
-  private data = inject(DataService);
+  private data = inject(ImageDataService);
   private activatedRoute = inject(ActivatedRoute);
   private platform = inject(Platform);
 
