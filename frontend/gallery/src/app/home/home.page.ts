@@ -9,10 +9,23 @@ import {
   IonRefresher,
   IonRefresherContent,
   IonList,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/angular/standalone';
 import { ImageComponent } from '../image/image.component';
 
-import { ImageDataService, Image } from '../services/image-data.service';
+import {
+  FixedSizeVirtualScrollStrategy,
+  RxVirtualScrollViewportComponent,
+  RxVirtualFor,
+} from '@rx-angular/template/experimental/virtual-scrolling';
+
+import {
+  ImageDataService,
+  Image,
+  splitArrayIntoChunks,
+} from '../services/image-data.service';
 
 @Component({
   selector: 'app-home',
@@ -28,21 +41,25 @@ import { ImageDataService, Image } from '../services/image-data.service';
     IonRefresher,
     IonRefresherContent,
     IonList,
+    IonGrid,
+    IonRow,
+    IonCol,
     ImageComponent,
+    FixedSizeVirtualScrollStrategy,
+    RxVirtualScrollViewportComponent,
+    RxVirtualFor,
   ],
 })
 export class HomePage {
-  public imageFilenames: any;
   public images: any;
+  public imagesGrid: any;
 
   constructor(private imageService: ImageDataService) {
-    // const visibleCount = 10;
+    this.imageService.getImages(0, 9).subscribe((response) => {
+      this.images = response;
+      this.imagesGrid = splitArrayIntoChunks(this.images, 3);
 
-    this.imageService.getImageFilenames().subscribe((res) => {
-      console.log(res);
-
-      this.imageFilenames = res;
-      this.images = this.imageService.getImagesByFilenames(this.imageFilenames);
+      console.log(this.imagesGrid);
     });
   }
 
@@ -52,13 +69,11 @@ export class HomePage {
     }, 3000);
   }
 
-  getImages(): Image[] {
-    return this.images;
-  }
+  // getImages(): Image[] {
+  //   return this.images;
+  // }
 
-  fetchAllImageFilepaths() {}
-
-  ngOnInit() {
-    this.fetchAllImageFilepaths();
-  }
+  // imagesGrid(): Image[][] {
+  //   return this.imagesGrid
+  // }
 }

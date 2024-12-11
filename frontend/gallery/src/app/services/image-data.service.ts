@@ -1,26 +1,55 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ImagekitService } from 'imagekitio-angular';
+import { firstValueFrom, map } from 'rxjs';
 
 export interface Image {
   id: number;
-  filename: string;
   filepath: string;
 }
 
-// NOTE: Unfortunately i did not have enough time to write an api service.
-// But i chose these constant names to demonstrate a few things:
-// - The api would have to read a configuration or environment variable that provides the backend base url.
-// - The endpoint for images would define it's "endpoint-string"/sub-path 'images/'.
-// - Then they plus the image name would be joined together via an url spec aware joiner.
-// Then this url could be used to retrieve the image from the backend server.
-
-// NOTE: Furthermore in the future one would want to implement some kind of pagination or batch image retrieval with a
-// maximum number of pictures per call.
-
 const baseUrl = 'http://localhost:3000/';
 const apiEndpoint = 'imagepaths/';
-const imagesEndpoint = baseUrl + apiEndpoint;
+const imagesEndpointBackend = baseUrl + apiEndpoint;
+
+// endpoint to media thats configured in the ImageKit.io CDN web interface
+const imagesEndpointCDN = 'https://ik.imagekit.io/';
+const CDN_ID = 'wozo7gejv';
+
+function joinURL(...args: any) {
+  return args
+    .join('/')
+    .replace(/[\/]+/g, '/')
+    .replace(/^(.+):\//, '$1://')
+    .replace(/^file:/, 'file:/')
+    .replace(/\/(\?|&|#[^!])/g, '$1')
+    .replace(/\?/g, '&')
+    .replace('&', '?');
+}
+
+/**
+ * Splits an array into chunks of a specified size.
+ *
+ * @param {Array} array The input array to be chunked.
+ * @param {number} chunkSize The size of each chunk.
+ * @returns {Array<Array>} An array of chunks.
+ */
+export function splitArrayIntoChunks(array: any[], chunkSize: number) {
+  return array.reduce((accumulator, item, index) => {
+    const chunkIndex = Math.floor(index / chunkSize);
+
+    if (!accumulator[chunkIndex]) accumulator[chunkIndex] = [];
+
+    accumulator[chunkIndex].push(item);
+
+    return accumulator;
+  }, []);
+}
+
+// // Example usage
+// const originalArray = Array.from({ length: 30 }, (_, i) => `String ${i}`);
+// const chunkedArray = splitArrayIntoChunks(originalArray, 3);
+
+// console.log(chunkedArray);
 
 @Injectable({
   providedIn: 'root',
@@ -28,48 +57,30 @@ const imagesEndpoint = baseUrl + apiEndpoint;
 export class ImageDataService {
   constructor(private http: HttpClient) {}
 
-  //TODO
-  // public getFilenames() {
-  //   const filenames: string[] = [];
-
-  //   return filenames;
-  // }
-
-  // public getImageFilenames() {
-  //   return this.http.get(imagesEndpoint + 'paths');
-  // }
-
-  public getImagesByFilenames(filenames: string[]): Image[] {
-    const images = filenames.map((value, index) => {
+  private filepathsToImages(filepaths: string[]) {
+    const images = filepaths.map((value, index) => {
       return {
         id: index,
-        filename: value,
-        filepath: new URL(value, imagesEndpoint).href,
+        filepath: joinURL(imagesEndpointCDN, CDN_ID, value),
       };
     });
 
     return images;
   }
 
-  public getImageFilenames() {
-    // return this.http.get(imagesEndpoint + 'paths');
-    const filenames = this.http.get(imagesEndpoint);
+  public getImageFilepaths(start: number, count: number) {
+    const responseObservable = this.http.get<string[]>(imagesEndpointBackend, {
+      params: { start: start, count: count },
+    });
 
-    // console.log(filenames);
-    return filenames;
+    return responseObservable;
+  }
 
-    // // Initializing the service with configuration
-    // this.imagekitService = new ImagekitService({
-    //   urlEndpoint: 'https://ik.imagekit.io/wozo7gejv/',
-    //   publicKey: 'public_w+424hnM+05PtmSrnTR54AnXtCQ=',
-    // });
+  public getImages(start: number, count: number) {
+    const images = this.getImageFilepaths(start, count).pipe(
+      map((filepaths: string[]) => this.filepathsToImages(filepaths))
+    );
 
-    // // Generating URL
-    // // Note: You can choose to override the publicKey if necessary
-    // const url = this.imagekitService.ikInstance.url({
-    //   path: '/abstract-1_h6LtzOTZB.jpg',
-    //   urlEndpoint: 'https://ik.imagekit.io/wozo7gejv/',
-    //   // publicKey: 'public_w+424hnM+05PtmSrnTR54AnXtCQ=',
-    // });
+    return images;
   }
 }

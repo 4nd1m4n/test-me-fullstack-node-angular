@@ -12,7 +12,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/imagepaths", async (request, response) => {
-    const metadataList = await imagekit.listPneumoniaMetadata(6);
+    start = request.query["start"];
+    count = request.query["count"];
+
+    const metadataList = await imagekit.listPneumoniaMetadata(start, count);
 
     const imageFilepaths = metadataList.map(
         (fileMetadata) => fileMetadata.filePath

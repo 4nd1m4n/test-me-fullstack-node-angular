@@ -6,19 +6,29 @@ const _imagekit = new ImageKit({
     urlEndpoint: process.env.IMAGEKIT_ENDPOINT,
 });
 
-async function listImageMetadata(gallery, limit = 10, imagekit = _imagekit) {
+async function listImageMetadata(
+    gallery,
+    skip = 0,
+    limit = 10,
+    imagekit = _imagekit
+) {
     const list = await imagekit.listFiles({
         fileType: "image",
         path: gallery,
+        skip: skip,
         limit: limit,
     });
 
     return list;
 }
 
-async function listPneumoniaMetadata(limit = 10, imagekit = _imagekit) {
+async function listPneumoniaMetadata(
+    skip = 0,
+    limit = 10,
+    imagekit = _imagekit
+) {
     const pneumonia_gallery_path = "/lung-x-rays/PNEUMONIA";
-    return listImageMetadata(pneumonia_gallery_path, limit, imagekit);
+    return listImageMetadata(pneumonia_gallery_path, skip, limit, imagekit);
 }
 
 module.exports = { listPneumoniaMetadata };

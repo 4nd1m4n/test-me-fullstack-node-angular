@@ -44,10 +44,8 @@ export class ViewImagePage implements OnInit {
   }
 
   ngOnInit() {
-    const filename = this.activatedRoute.snapshot.paramMap.get(
-      'filename'
-    ) as string;
-    this.image = this.data.getImagesByFilenames([filename])[0];
+    const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    this.image = this.data.getImagesByFilepaths([id])[0];
   }
 
   getBackButtonText() {
