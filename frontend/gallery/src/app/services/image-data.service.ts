@@ -45,12 +45,6 @@ export function splitArrayIntoChunks(array: any[], chunkSize: number) {
   }, []);
 }
 
-// // Example usage
-// const originalArray = Array.from({ length: 30 }, (_, i) => `String ${i}`);
-// const chunkedArray = splitArrayIntoChunks(originalArray, 3);
-
-// console.log(chunkedArray);
-
 @Injectable({
   providedIn: 'root',
 })

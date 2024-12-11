@@ -1,3 +1,12 @@
-<ion-item *ngIf="image" [ngStyle]="{'height': '100px', 'overflow': 'hidden'}">
+<!-- <ion-item *ngIf="image" [ngStyle]="{'position': 'relative', 'height': '100px', 'overflow': 'hidden'}">
   <img [ngSrc]="image.filepath" [alt]="image.filepath" fill />
-</ion-item>
+</ion-item> -->
+
+
+<!-- <img [ngSrc]="image.filepath" [alt]="image.filepath" fill /> -->
+
+
+<div class="container">
+  <img [src]="placeholderUrl" class="placeholder">
+  <img *ngIf="image" [ngSrc]="image.filepath" [alt]="image.filepath" fill class="image">
+</div>

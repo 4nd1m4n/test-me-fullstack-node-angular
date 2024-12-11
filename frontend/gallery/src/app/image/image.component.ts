@@ -6,12 +6,7 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-  Platform,
-  IonItem,
-  IonLabel,
-  IonThumbnail,
-} from '@ionic/angular/standalone';
+import { Platform, IonItem } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronForward } from 'ionicons/icons';
 import { Image } from '../services/image-data.service';
@@ -25,14 +20,12 @@ import { Image } from '../services/image-data.service';
     CommonModule,
     IonItem,
     NgOptimizedImage,
-
-    // IonLabel,
-    // IonThumbnail,
     // RouterLink,
   ],
 })
 export class ImageComponent {
   private platform = inject(Platform);
+  public placeholderUrl = '/assets/image-placeholder.png';
   @Input() image?: Image;
   isIos() {
     return this.platform.is('ios');

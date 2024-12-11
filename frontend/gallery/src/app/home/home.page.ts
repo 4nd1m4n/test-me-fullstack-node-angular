@@ -58,8 +58,6 @@ export class HomePage {
     this.imageService.getImages(0, 1000).subscribe((response) => {
       this.images = response;
       this.imagesGrid = splitArrayIntoChunks(this.images, 3);
-
-      console.log(this.imagesGrid);
     });
   }
 
