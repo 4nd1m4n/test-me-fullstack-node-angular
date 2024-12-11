@@ -28,27 +28,26 @@ import {
 } from '../services/image-data.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonRefresher,
-    IonRefresherContent,
-    IonList,
-    IonGrid,
-    IonRow,
-    IonCol,
-    ImageComponent,
-    FixedSizeVirtualScrollStrategy,
-    RxVirtualScrollViewportComponent,
-    RxVirtualFor,
-  ],
+    selector: 'app-home',
+    templateUrl: 'home.page.html',
+    styleUrls: ['home.page.scss'],
+    imports: [
+        CommonModule,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonRefresher,
+        IonRefresherContent,
+        IonList,
+        IonGrid,
+        IonRow,
+        IonCol,
+        ImageComponent,
+        FixedSizeVirtualScrollStrategy,
+        RxVirtualScrollViewportComponent,
+        RxVirtualFor,
+    ]
 })
 export class HomePage {
   public images: any;
