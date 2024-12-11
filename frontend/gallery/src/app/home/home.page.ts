@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   RefresherCustomEvent,
@@ -8,7 +8,6 @@ import {
   IonContent,
   IonRefresher,
   IonRefresherContent,
-  IonList,
   IonGrid,
   IonRow,
   IonCol,
@@ -28,33 +27,35 @@ import {
 } from '../services/image-data.service';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: 'home.page.html',
-    styleUrls: ['home.page.scss'],
-    imports: [
-        CommonModule,
-        IonHeader,
-        IonToolbar,
-        IonTitle,
-        IonContent,
-        IonRefresher,
-        IonRefresherContent,
-        IonList,
-        IonGrid,
-        IonRow,
-        IonCol,
-        ImageComponent,
-        FixedSizeVirtualScrollStrategy,
-        RxVirtualScrollViewportComponent,
-        RxVirtualFor,
-    ]
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  imports: [
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonRefresher,
+    IonRefresherContent,
+    IonGrid,
+    IonRow,
+    IonCol,
+    ImageComponent,
+    FixedSizeVirtualScrollStrategy,
+    RxVirtualScrollViewportComponent,
+    RxVirtualFor,
+    NgOptimizedImage,
+  ],
 })
 export class HomePage {
   public images: any;
   public imagesGrid: any;
 
+  public rowSize: number = 100;
+
   constructor(private imageService: ImageDataService) {
-    this.imageService.getImages(0, 9).subscribe((response) => {
+    this.imageService.getImages(0, 1000).subscribe((response) => {
       this.images = response;
       this.imagesGrid = splitArrayIntoChunks(this.images, 3);
 
@@ -67,12 +68,4 @@ export class HomePage {
       (ev as RefresherCustomEvent).detail.complete();
     }, 3000);
   }
-
-  // getImages(): Image[] {
-  //   return this.images;
-  // }
-
-  // imagesGrid(): Image[][] {
-  //   return this.imagesGrid
-  // }
 }

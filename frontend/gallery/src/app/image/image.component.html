@@ -1,3 +1,3 @@
-<ion-item *ngIf="image">
-  <img [src]="image.filepath" [alt]="image.filepath" />
+<ion-item *ngIf="image" [ngStyle]="{'height': '100px', 'overflow': 'hidden'}">
+  <img [ngSrc]="image.filepath" [alt]="image.filepath" fill />
 </ion-item>

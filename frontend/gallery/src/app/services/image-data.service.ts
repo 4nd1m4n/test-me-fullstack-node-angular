@@ -61,7 +61,8 @@ export class ImageDataService {
     const images = filepaths.map((value, index) => {
       return {
         id: index,
-        filepath: joinURL(imagesEndpointCDN, CDN_ID, value),
+        // filepath: joinURL(imagesEndpointCDN, CDN_ID, value),
+        filepath: value,
       };
     });
 

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,11 +17,19 @@ import { chevronForward } from 'ionicons/icons';
 import { Image } from '../services/image-data.service';
 
 @Component({
-    selector: 'app-image',
-    templateUrl: './image.component.html',
-    styleUrls: ['./image.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, RouterLink, IonItem, IonLabel, IonThumbnail]
+  selector: 'app-image',
+  templateUrl: './image.component.html',
+  styleUrls: ['./image.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    IonItem,
+    NgOptimizedImage,
+
+    // IonLabel,
+    // IonThumbnail,
+    // RouterLink,
+  ],
 })
 export class ImageComponent {
   private platform = inject(Platform);

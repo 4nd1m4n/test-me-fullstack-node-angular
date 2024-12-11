@@ -19,16 +19,15 @@
     </ion-toolbar>
   </ion-header>
 
-  <rx-virtual-scroll-viewport [itemSize]="50">
-    <ion-grid>
-      <ion-row *rxVirtualFor="let imageRows of imagesGrid">
-        <ion-col *ngFor="let imageCol of imageRows">
+  <rx-virtual-scroll-viewport [itemSize]="rowSize">
+    <ion-grid [fixed]="true" [ngStyle]="{'padding': '0px'}">
+      <ion-row *rxVirtualFor="let imageRows of imagesGrid"
+        [ngStyle]="{'width': '100%', 'height': rowSize + 'px', 'padding': '0px'}">
+        <ion-col *ngFor="let imageCol of imageRows" [ngStyle]="{'padding': '1px'}">
           <app-image [image]="imageCol" />
         </ion-col>
       </ion-row>
     </ion-grid>
-
-    </div>
   </rx-virtual-scroll-viewport>
 
 </ion-content>
