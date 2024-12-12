@@ -37,4 +37,9 @@
     </div>
   </rx-virtual-scroll-viewport>
 
+  <!-- NOTE: I could try to put all of this into one image gallery/wall component where in that component all
+  ngOptimized stuff is directly used without further sub component nesting. (My assumption is, that this component
+  nesting is slowing things down because angular might do some component updating in the background... -> this might
+  also be the reason for the still sometimes occurring "... has detected that the height of the fill-mode is zero. ..." warning.) -->
+
 </ion-content>
