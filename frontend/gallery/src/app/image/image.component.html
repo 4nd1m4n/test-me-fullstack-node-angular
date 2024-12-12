@@ -2,11 +2,19 @@
   <img [ngSrc]="image.filepath" [alt]="image.filepath" fill />
 </ion-item> -->
 
+<!-- <img *ngIf="image" [ngSrc]="image.filepath" [placeholder]="placeholderUrl" width="100" height="100"
+  [ngStyle]="{'object-fit': 'cover'}"> -->
 
-<!-- <img [ngSrc]="image.filepath" [alt]="image.filepath" fill /> -->
+<!-- <div [ngStyle]="{'position': 'relative', 'width': '100px', 'height': '100px', 'overflow': 'hidden'}"> -->
+
+<div [ngStyle]="{'position': 'relative', 'width': '100px', 'height': '100px'}">
 
 
-<div class="container">
-  <img [src]="placeholderUrl" class="placeholder">
-  <img *ngIf="image" [ngSrc]="image.filepath" [alt]="image.filepath" fill class="image">
+  <!-- <img *ngIf="image" [ngSrc]="image.filepath" [placeholder]="placeholderUrl" fill [ngStyle]="{'object-fit':
+  'cover'}"> -->
+
+  <img *ngIf="image" [ngSrc]="image.filepath" fill [ngStyle]="{'object-fit': 'contain', 'height': '100px'}"
+    sizes="[16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840]"
+    placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA3QAAAN0BcFOiBwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIeSURBVFiFzde9axRBGIDx311slAQ0iMTiREP8wEJBC7FT8aML+A8IASFgY2WVIqUfRQorS1tRURQEEYOdlYoiKTRFTEBE4gkGv03GYt+Qje553OUu58Awt/POzPOwN+/srpQS9OEqppHaXKeD1ZdSUgr4c2zCAma0t1RQxnvsFTYJt9GfUtLOiv5gpWCbxvy/4Cihq8US88GWMFVj4B48wCd8wWMcbZHEVLCLBXAc3yP+NSSSbJ8Mt1UAPXgbsVFsRDeG8QOfsbWdAiei/1nBxOsRO9MKgXKNVBmI9m5B7F60u2rMbajUEngV7cmC2GC0E60QoPgv6JYdSAnnsRnrcRY/MYdKu7PgsCz1kmzjLf6ex1CdxdeG7BNcwZaGBWLQdtzAO3zEfRysA1+HhznZhFlsa1igiduahz+VPV8ux/ULdLdNoADeG/1dstM04SZKLReoBc/FezEZ8dGWCtSD58btlh3nC7L0rpsFvRjBI5xDT7Pw3PjBEJiz9GwpPAd24LXlbzITGGgWnps38se6ywVwCNXov4V9uBPXVRxrFp5jXCsUwJDs0Em4hHL0l3Ex+n/hZbPw3N2bzQu8wQVLp97pGhNP4dtK4Lm1lm3CxVrFkToT94fIhhWm7l8Ck9i5kkWbEVgjK1UcSCl9sMpl8X1grhPwvEDHyn8hMINKqVTqXy1osCqYKWM8RMZWQyIYY8Ec7/zHaeRkxz7PfwNBh3daeExvIgAAAABJRU5ErkJggg=="
+    loading="lazy" />
 </div>
