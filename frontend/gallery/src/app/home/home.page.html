@@ -29,17 +29,36 @@
       </ion-row>
     </ion-grid>
   </rx-virtual-scroll-viewport> -->
-
-  <rx-virtual-scroll-viewport [itemSize]="rowSize" [ngStyle]="{'display': 'flex', 'flex-flow': 'row wrap', 'flex': '0 0
-  200px', 'justify-content': 'center', 'align-items': 'center', 'width': '100%'}">
+  <!-- <div style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none"> -->
+  <!-- <rx-virtual-scroll-viewport [itemSize]="rowSize" [ngStyle]="{'scroll-behavior': 'smooth', 'display': 'flex', 'flex-flow': 'row wrap', 'flex': '0 0
+    200px', 'justify-content': 'center', 'align-items': 'center', 'width': '100%'}">
     <div *rxVirtualFor="let image of images">
       <app-image [image]=" image" />
     </div>
   </rx-virtual-scroll-viewport>
+  <div style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none"></div> -->
+  <!-- </div> -->
 
   <!-- NOTE: I could try to put all of this into one image gallery/wall component where in that component all
   ngOptimized stuff is directly used without further sub component nesting. (My assumption is, that this component
   nesting is slowing things down because angular might do some component updating in the background... -> this might
-  also be the reason for the still sometimes occurring "... has detected that the height of the fill-mode is zero. ..." warning.) -->
+  also be the reason for the still sometimes occurring warning: "... has detected that the height of the fill-mode is
+  zero. ...".) -->
+
+
+  <rx-virtual-scroll-viewport id="viewportXYZ" [itemSize]="rowSize" minBufferPx="10000" maxBufferPx="10000" [ngStyle]="{'scroll-behavior': 'smooth', 'display': 'flex', 'flex-flow': 'row wrap', 'flex': '0 0
+    200px', 'justify-content': 'center', 'align-items': 'center', 'width': '100%', 'height': '800px'}">
+    <div *rxVirtualFor="let image of images">
+      <div [ngStyle]="{'position': 'relative', 'width': '100px', 'height': '100px'}">
+        <!-- <img [ngSrc]="image.filepath" [ngStyle]="{'object-fit': 'contain', 'height': '100px'}"
+        sizes="[16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840]"
+          [placeholder]=placeholder loading="lazy" fill /> -->
+        <!-- <img [ngSrc]="image.filepath" width="100" height="100" translate="" [placeholder]=placeholder
+        loading="lazy" style="height: 100%; width: auto" /> -->
+        <img [ngSrc]="image.filepath" width="100" height="100" transform="{w:100, h:100, cm: 'pad_resize', ar: '1:1'}"
+          [placeholder]=placeholder loading="lazy" />
+      </div>
+    </div>
+  </rx-virtual-scroll-viewport>
 
 </ion-content>
