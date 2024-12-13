@@ -13,6 +13,7 @@ import { Image } from '../services/image-data.service';
 
 @Component({
   selector: 'app-image',
+  standalone: true,
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

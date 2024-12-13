@@ -52,6 +52,7 @@ const COMPONENT_RX_ANGULAR_CONFIG: RxRenderStrategiesConfig<string> = {
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   imports: [
