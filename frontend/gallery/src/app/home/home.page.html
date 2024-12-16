@@ -19,26 +19,6 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- <rx-virtual-scroll-viewport [itemSize]="rowSize">
-    <ion-grid [fixed]="true" [ngStyle]="{'padding': '0px'}">
-      <ion-row *rxVirtualFor="let imageRows of imagesGrid"
-        [ngStyle]="{'width': '100%', 'height': rowSize + 'px', 'padding': '0px', 'overflow': 'hidden'}">
-        <ion-col *ngFor="let imageCol of imageRows" [ngStyle]="{'margin': '1px'}">
-          <app-image [image]="imageCol" />
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </rx-virtual-scroll-viewport> -->
-  <!-- <div style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none"> -->
-  <!-- <rx-virtual-scroll-viewport [itemSize]="rowSize" [ngStyle]="{'scroll-behavior': 'smooth', 'display': 'flex', 'flex-flow': 'row wrap', 'flex': '0 0
-    200px', 'justify-content': 'center', 'align-items': 'center', 'width': '100%'}">
-    <div *rxVirtualFor="let image of images">
-      <app-image [image]=" image" />
-    </div>
-  </rx-virtual-scroll-viewport>
-  <div style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none"></div> -->
-  <!-- </div> -->
-
   <!-- NOTE: I could try to put all of this into one image gallery/wall component where in that component all
   ngOptimized stuff is directly used without further sub component nesting. (My assumption is, that this component
   nesting is slowing things down because angular might do some component updating in the background... -> this might
@@ -46,7 +26,7 @@
   zero. ...".) -->
 
 
-  <!-- <rx-virtual-scroll-viewport id="viewportXYZ" [itemSize]="rowSize" minBufferPx="10000" maxBufferPx="10000" [ngStyle]="{'scroll-behavior': 'smooth', 'display': 'flex', 'flex-flow': 'row wrap', 'flex': '0 0
+  <!-- <rx-virtual-scroll-viewport [itemSize]="rowSize" minBufferPx="10000" maxBufferPx="10000" [ngStyle]="{'scroll-behavior': 'smooth', 'display': 'flex', 'flex-flow': 'row wrap', 'flex': '0 0
     200px', 'justify-content': 'center', 'align-items': 'center', 'width': '100%', 'height': '800px'}">
     <div *rxVirtualFor="let image of images">
       <div [ngStyle]="{'position': 'relative', 'width': '100px', 'height': '100px'}">
@@ -56,62 +36,24 @@
     </div>
   </rx-virtual-scroll-viewport> -->
 
-  <!-- <div *ngIf="images">
-    <li-virtual-scroll [items]="images" [gridList]="true">
-      <div *liVirtualItem="let image">
-        <img [ngSrc]="image.filepath" width="100" height="100" [placeholder]=placeholder loading="lazy" />
-      </div>
-    </li-virtual-scroll>
-  </div> -->
 
-  <!-- <div *ngIf="images">
-    <li-virtual-scroll [items]="images" [gridList]="true" [itemWidth]="100" [itemHeight]="100">
-      <div *liVirtualItem="let image" style="position: relative; width: 100px; height: 100px;">
-        <img [ngSrc]="image.filepath" width="100" height="100" [placeholder]=placeholder loading="lazy" />
-      </div>
-    </li-virtual-scroll>
-  </div> -->
+  <!-- NOTE: Here is a table of all "loaderParams"/"transformation-params"
+   https://www.npmjs.com/package/imagekit-javascript -->
 
-
-
-  <!-- <ion-content [fullscreen]="true" style="height: 100%; width: 100%;"> -->
   <div *ngIf="images" style="height: 100%; width: 100%;">
-    <li-virtual-scroll [items]="images" [bufferLength]="10" [asyncRendering]="true" [itemWidth]="100" [itemHeight]="100"
-      style="height: 100%; width: 100%; padding:
+    <li-virtual-scroll [items]="images" [bufferLength]="100" [asyncRendering]="true" [itemWidth]="100"
+      [itemHeight]="100" [gridList]="true" style="display: flex; flex-direction: row; flex-grow: 1; flex-wrap: wrap;
+    justify-content: space-around;
+    height: 100%; width: 100%; padding:
       0px; margin: 0px;">
-      <!-- <img *liVirtualItem="let image" [ngSrc]="image.filepath" [transformation]="[
-      {
-        height: '100',
-        width: '100',
-        format: 'webp',
-        cm: 'extract',
-      },
-    ]" width="100" height="100" loading="lazy" style="display: inline-block; padding:
-      0px; margin: 0px; width: 100px; height: 100px;" [loaderParams]="{roundedCorners: true, cm: 'extract'}" /> -->
 
-      <!-- <img *liVirtualItem="let image" [ngSrc]="image.filepath" width="100" height="100" loading="lazy" style="display:
-      inline-block; padding: 0px; margin: 0px; width: 100px; height: 100px;" [loaderParams]="{h: 100, format: 'webp',
-        ar: 1, c: 'force', cm: 'extract'}" /> -->
+      <img *liVirtualItem="let image" [ngSrc]="image.filepath" loading="lazy"
+        style="padding: 0px; margin: 0px; width: 100px; height: 100px;" width="100" height="100" [loaderParams]="{
+      f: 'webp', ar: '1-1', c: 'maintain_ratio', r: '8'}" />
 
-      <!-- <img *liVirtualItem="let image" [ngSrc]="image.filepath" loading="lazy" style="display:
-      inline-block; padding: 0px; margin: 0px; width: 100px; height: 100px;" width="100" height="100" [loaderParams]="{w: '100', h: '100',
-      format: 'webp', ar: 1-1, c: 'force', cm: 'extract'}" /> -->
-
-      <!-- <img *liVirtualItem="let image" [ngSrc]="image.filepath" loading="lazy" style="display:
-      inline-block; padding: 0px; margin: 0px; width: 100px; height: 100px;" width="100" height="100" [loaderParams]="{
-      format: 'webp', ar: '1-1', cm: 'extract'}" /> -->
-
-      <img *liVirtualItem="let image" [ngSrc]="image.filepath" loading="lazy" style="display:
-      inline-block; padding: 0px; margin: 0px; width: 100px; height: 100px;" width="100" height="100" [loaderParams]="{
-      format: 'webp', ar: '1-1', c: 'maintain_ratio'}" />
-
-      <!-- <img *liVirtualPlaceholder=" let image" placeholder="placeholder" style="display: inline-block; padding: 0px; margin: 0px; width: 100px;
-      height: 100px;" /> -->
-      <img *liVirtualPlaceholder=" let image" src="/assets/image-placeholder.png" style="display: inline-block; padding: 0px; margin: 0px; width: 100px;
+      <img *liVirtualPlaceholder=" let image" src="/assets/image-placeholder.png" style="padding:
+      0px; margin: 0px; width: 100px;
       height: 100px;" />
-
-      <!-- <ik-image *liVirtualItem="let item" path="image.filepath"
-        [transformation]="{[{'height': '300','width': '400'}]}" /> -->
     </li-virtual-scroll>
   </div>
 
