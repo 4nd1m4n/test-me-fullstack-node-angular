@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, map } from 'rxjs';
+import ImageKit from 'imagekit-javascript';
 
 export interface Image {
   id: number;
@@ -52,11 +53,29 @@ export class ImageDataService {
   constructor(private http: HttpClient) {}
 
   private filepathsToImages(filepaths: string[]) {
-    const images = filepaths.map((value, index) => {
+    // let imagekit = new ImageKit({
+    //   urlEndpoint: 'https://ik.imagekit.io/wozo7gejv/',
+    // });
+    let imagekit = new ImageKit({
+      urlEndpoint: 'https://ik.imagekit.io/wozo7gejv/',
+    });
+
+    const images = filepaths.map((filepath, index) => {
       return {
         id: index,
-        // filepath: joinURL(imagesEndpointCDN, CDN_ID, value),
-        filepath: value,
+        // filepath: joinURL(imagesEndpointCDN, CDN_ID, filepath),
+        filepath: filepath,
+        // filepath: imagekit.url({
+        //   path: filepath,
+        //   transformation: [
+        //     {
+        //       height: '100',
+        //       width: '100',
+        //       format: 'webp',
+        //       cm: 'extract',
+        //     },
+        //   ],
+        // }),
       };
     });
 

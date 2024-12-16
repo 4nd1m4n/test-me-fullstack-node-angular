@@ -41,10 +41,6 @@ import {
 
 import { NgxVirtualScrollModule } from '@lithiumjs/ngx-virtual-scroll';
 
-//////////////
-
-////////////
-
 const COMPONENT_RX_ANGULAR_CONFIG: RxRenderStrategiesConfig<string> = {
   // NOTE: 'immediate' seemed the best so far
   // [see](https://www.rx-angular.io/docs/cdk/render-strategies#features)
