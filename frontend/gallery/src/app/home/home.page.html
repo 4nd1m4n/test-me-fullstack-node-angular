@@ -19,31 +19,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- NOTE: I could try to put all of this into one image gallery/wall component where in that component all
-  ngOptimized stuff is directly used without further sub component nesting. (My assumption is, that this component
-  nesting is slowing things down because angular might do some component updating in the background... -> this might
-  also be the reason for the still sometimes occurring warning: "... has detected that the height of the fill-mode is
-  zero. ...".) -->
-
-
-  <!-- <rx-virtual-scroll-viewport [itemSize]="rowSize" minBufferPx="10000" maxBufferPx="10000" [ngStyle]="{'scroll-behavior': 'smooth', 'display': 'flex', 'flex-flow': 'row wrap', 'flex': '0 0
-    200px', 'justify-content': 'center', 'align-items': 'center', 'width': '100%', 'height': '800px'}">
-    <div *rxVirtualFor="let image of images">
-      <div [ngStyle]="{'position': 'relative', 'width': '100px', 'height': '100px'}">
-        <img [ngSrc]="image.filepath" width="100" height="100" transform="{w:100, h:100, cm: 'pad_resize', ar: '1:1'}"
-          [placeholder]=placeholder loading="lazy" />
-      </div>
-    </div>
-  </rx-virtual-scroll-viewport> -->
-
-
   <!-- NOTE: Here is a table of all "loaderParams"/"transformation-params"
    https://www.npmjs.com/package/imagekit-javascript -->
 
   <div *ngIf="images" style="height: 100%; width: 100%;">
     <li-virtual-scroll [items]="images" [bufferLength]="100" [asyncRendering]="true" [itemWidth]="100"
       [itemHeight]="100" [gridList]="true" style="display: flex; flex-direction: row; flex-grow: 1; flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 100%; width: 100%; padding:
       0px; margin: 0px;">
 

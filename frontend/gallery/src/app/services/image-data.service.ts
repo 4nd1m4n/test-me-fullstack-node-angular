@@ -12,10 +12,6 @@ const baseUrl = 'http://localhost:3000/';
 const apiEndpoint = 'imagepaths/';
 const imagesEndpointBackend = baseUrl + apiEndpoint;
 
-// endpoint to media thats configured in the ImageKit.io CDN web interface
-const imagesEndpointCDN = 'https://ik.imagekit.io/';
-const CDN_ID = 'wozo7gejv';
-
 function joinURL(...args: any) {
   return args
     .join('/')
@@ -53,29 +49,10 @@ export class ImageDataService {
   constructor(private http: HttpClient) {}
 
   private filepathsToImages(filepaths: string[]) {
-    // let imagekit = new ImageKit({
-    //   urlEndpoint: 'https://ik.imagekit.io/wozo7gejv/',
-    // });
-    let imagekit = new ImageKit({
-      urlEndpoint: 'https://ik.imagekit.io/wozo7gejv/',
-    });
-
     const images = filepaths.map((filepath, index) => {
       return {
         id: index,
-        // filepath: joinURL(imagesEndpointCDN, CDN_ID, filepath),
         filepath: filepath,
-        // filepath: imagekit.url({
-        //   path: filepath,
-        //   transformation: [
-        //     {
-        //       height: '100',
-        //       width: '100',
-        //       format: 'webp',
-        //       cm: 'extract',
-        //     },
-        //   ],
-        // }),
       };
     });
 
